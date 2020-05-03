@@ -78,7 +78,7 @@ const App = () => {
     const [neutral, setNeutral] = useState(0);
     const [bad, setBad] = useState(0);
 
-    const onClickHandler = (name) => {
+    const handleClick = (name) => {
         switch (name) {
             case 'Good':
                 return () => setGood(good+1);
@@ -94,7 +94,7 @@ const App = () => {
     return (
         <div>
             <h1>Unicafe Feedback</h1>
-            <Buttons onClick={onClickHandler} />
+            <Buttons onClick={handleClick} />
             <h2>Statistics</h2>
             <Statistics good={good} bad={bad} neutral={neutral}/>
         </div>
