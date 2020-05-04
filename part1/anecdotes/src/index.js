@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
+import './index.css'
 
 const anecdotes = [
     'If it hurts, do it more often',
@@ -68,7 +69,7 @@ const App = () => {
 
 const Button = (props) => {
     return (
-        <button onClick={props.handleClick(props.current)}>{props.text}</button>
+        <a onClick={props.handleClick(props.current)}>{props.text}</a>
     );
 };
 
