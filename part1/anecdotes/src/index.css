@@ -5,32 +5,33 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #031321;
+  background: #222;
   font-family: consolas, serif;
   color: white;
 }
 
-a {
+button {
   position: relative;
   display: inline-block;
-  padding: 15px 30px;
+  padding: 7px 15px;
+  background: transparent;
+  border: transparent;
   color: #2196f3;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 12px;
   overflow: hidden;
   transition: 0.2s;
 }
 
-a:hover {
+button:hover {
   color: #255784;
   background: #2196f3;
   box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
-  transition-delay: 0.1s;
 }
 
-a span {
+button span {
   position: absolute;
   display: block;
 }

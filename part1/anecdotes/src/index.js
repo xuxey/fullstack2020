@@ -60,8 +60,10 @@ const App = () => {
             <br/>
             Votes: {points[selected]}
             <br/>
+            <hr/>
             <Button text='Next' handleClick={handleClick} current={selected}/>
             <Button text='Vote' handleClick={voteForId} current={selected}/>
+            <br/>
             <Votes highest={highest} votes={points}/>
         </div>
     )
@@ -69,7 +71,7 @@ const App = () => {
 
 const Button = (props) => {
     return (
-        <a onClick={props.handleClick(props.current)}>{props.text}</a>
+        <button onClick={props.handleClick(props.current)}>{props.text}</button>
     );
 };
 
