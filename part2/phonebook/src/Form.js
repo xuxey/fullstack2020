@@ -1,17 +1,14 @@
 import React, {useState} from "react";
+import PhonebookService from "./services/PhonebookService";
 
-const Form = ({persons, setPersons}) => {
+const Form = ({persons: phonebook, setPhonebook}) => {
     const [newName, setNewName] = useState('');
     const [newNumber, setNewNumber] = useState('');
     const handleSubmit = (event) => {
         event.preventDefault();
         if (newName === '') return;
         if (newNumber === '') return;
-        if (persons.filter(p => p.name === newName).length > 0) {
-            window.alert(`${newName} already exists in the phone book`);
-            return;
-        }
-        if (persons.filter(p => p.number === newNumber).length > 0) {
+        if (phonebook.find(p => p.number === newNumber) === null) {
             window.alert(`${newNumber} already exists in the phone book`);
             return;
         }
@@ -19,7 +16,21 @@ const Form = ({persons, setPersons}) => {
             name: newName,
             number: newNumber
         };
-        setPersons(persons.concat(newPerson));
+        const existingPerson = phonebook.find(p => p.name === newName);
+        console.log(existingPerson);
+        if (existingPerson !== undefined) {
+            if (window.confirm(`${newName} already exists in the phone book, update their info?`)) {
+                newPerson['id'] = existingPerson.id;
+                PhonebookService.updateEntry(newPerson)
+                    .then(responsePerson => setPhonebook(
+                        phonebook.filter(p => p.id !== existingPerson.id)
+                            .concat(responsePerson)));
+            }
+            return;
+        }
+
+        PhonebookService.createEntry(newPerson)
+            .then(responsePerson => setPhonebook(phonebook.concat(responsePerson)));
         setNewName('');
         setNewNumber('');
     };
