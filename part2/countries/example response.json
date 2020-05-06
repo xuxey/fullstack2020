@@ -1,0 +1,41 @@
+{
+  "request": {
+    "type": "City",
+    "query": "New Delhi, India",
+    "language": "en",
+    "unit": "m"
+  },
+  "location": {
+    "name": "New Delhi",
+    "country": "India",
+    "region": "Delhi",
+    "lat": "28.600",
+    "lon": "77.200",
+    "timezone_id": "Asia\/Kolkata",
+    "localtime": "2020-05-06 13:29",
+    "localtime_epoch": 1588771740,
+    "utc_offset": "5.50"
+  },
+  "current": {
+    "observation_time": "07:59 AM",
+    "temperature": 34,
+    "weather_code": 389,
+    "weather_icons": [
+      "https:\/\/assets.weatherstack.com\/images\/wsymbols01_png_64\/wsymbol_0024_thunderstorms.png"
+    ],
+    "weather_descriptions": [
+      "Haze, Rain With Thunderstorm"
+    ],
+    "wind_speed": 11,
+    "wind_degree": 240,
+    "wind_dir": "WSW",
+    "pressure": 1008,
+    "precip": 0,
+    "humidity": 30,
+    "cloudcover": 75,
+    "feelslike": 34,
+    "uv_index": 10,
+    "visibility": 4,
+    "is_day": "yes"
+  }
+}

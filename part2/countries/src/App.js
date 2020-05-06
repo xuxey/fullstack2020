@@ -1,20 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Search from "./Search";
-import Form from "./Form";
 import axios from 'axios'
 
 const App = () => {
-    const [persons, setPersons] = useState([]);
+    const [countries, setCountries] = useState([]);
     useEffect(() => {
-        axios.get("http://localhost:3001/persons")
-            .then(response => setPersons(response.data))
+        axios.get("https://restcountries.eu/rest/v2/all")
+            .then(response => setCountries(response.data))
     }, []);
     return (
         <div>
-            <h2>Phone book</h2>
-            <Form persons={persons} setPersons={setPersons}/>
-            <Search phonebook={persons}/>
+            <h1>Countries</h1>
+            <Search countries={countries}/>
         </div>
     )
 };
