@@ -12,7 +12,7 @@ const createEntry = (newPerson) => {
 
 const deleteEntry = (id) => {
     const promise = axios.delete(`http://localhost:3001/persons/${id}`);
-    return promise.then(response => response.status);
+    return promise.then(response => response.status)
 };
 
 const updateEntry = (person) => {

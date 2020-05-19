@@ -1,15 +1,16 @@
 import React, {useState} from "react";
-import PhonebookService from "./services/PhonebookService";
+import PhonebookService from "../services/PhonebookService";
 
-const Form = ({persons: phonebook, setPhonebook}) => {
+const Form = ({persons: phonebook, setPhonebook, showForm, setShowForm, setMessage}) => {
     const [newName, setNewName] = useState('');
     const [newNumber, setNewNumber] = useState('');
+    if (!showForm) return <></>;
     const handleSubmit = (event) => {
         event.preventDefault();
         if (newName === '') return;
         if (newNumber === '') return;
         if (phonebook.find(p => p.number === newNumber) === null) {
-            window.alert(`${newNumber} already exists in the phone book`);
+            setMessage('This person already exists', true);
             return;
         }
         const newPerson = {
@@ -25,26 +26,29 @@ const Form = ({persons: phonebook, setPhonebook}) => {
                     .then(responsePerson => setPhonebook(
                         phonebook.filter(p => p.id !== existingPerson.id)
                             .concat(responsePerson)));
+                setShowForm(false);
             }
             return;
         }
 
         PhonebookService.createEntry(newPerson)
             .then(responsePerson => setPhonebook(phonebook.concat(responsePerson)));
+        setShowForm(false);
+        setMessage('New Person successfully added to Phonebook', false);
         setNewName('');
         setNewNumber('');
     };
-
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='form'>
             <h3>Add a new Person</h3>
-            <div>name: <input value={newName} onChange={e => setNewName(e.target.value)}/></div>
-            <div>number: <input type='number' value={newNumber} onChange={e => setNewNumber(e.target.value)}/></div>
-            <div>
-                <button type="submit">Add Person</button>
+            <div>Name - <input className='form-item' value={newName} onChange={e => setNewName(e.target.value)}/></div>
+            <div>Number - <input className='form-item' type='number' value={newNumber}
+                                 onChange={e => setNewNumber(e.target.value)}/></div>
+            <div className='form-item'>
+                <button className='button' type="submit">Add</button>
             </div>
         </form>
-    )
+    );
 };
 
 export default Form;

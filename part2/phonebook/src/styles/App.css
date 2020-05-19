@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    color: white;
+    background: #222222;
+    font-family: Consolas, serif;
+}
+
+h3 {
+    color: blueviolet;
+}
+
+.error {
+    order: 2;
+    color: red;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.message {
+    order: 2;
+    color: green;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.global {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.navbar {
+    background: #000000;
+    margin-top: 0;
+    position: fixed;
+    list-style-type: none;
+    width: 100%;
+    order: 1;
+    flex-flow: row wrap;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    display: flex;
+}
+
+.navbar-item {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+}
+
+.navbar-item:hover {
+    color: blueviolet;
+}
+
+.phonebook {
+    order: 3;
+}
+
+.content {
+    order: 2;
+    margin-left: 2%;
+    margin-top: 5%;
+}
+
+.form {
+    order: 2;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 50%;
+}
+
+.form-item {
+    color: white;
+    margin-top: 20px;
+    background: #222222;
+}
+
+.entries {
+    display: flex;
+    flex-flow: column nowrap;
+    float: left;
+}
+
+.entry-item {
+    display: inline-flex;
+    flex-flow: row nowrap;
+    text-align: center;
+    flex-grow: 4;
+    padding: 5px 5px;
+}
+
+.button {
+    position: relative;
+    display: inline-block;
+    padding: 7px 15px;
+    background: #282c34;
+    border: transparent;
+    color: blueviolet;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-decoration: none;
+    font-size: 12px;
+    overflow: hidden;
+    transition: 0.2s;
+}
+
+.button:hover {
+    color: #255784;
+    background: blueviolet;
+    box-shadow: 0 0 10px #2196f3, 0 0 40px #2196f3, 0 0 80px #2196f3;
+}
+
+.button span {
+    position: absolute;
+    display: block;
+}
