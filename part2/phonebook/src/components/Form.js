@@ -10,7 +10,7 @@ const Form = ({persons: phonebook, setPhonebook, showForm, setShowForm, setMessa
         if (newName === '') return;
         if (newNumber === '') return;
         if (phonebook.find(p => p.number === newNumber) === null) {
-            setMessage('This person already exists', true);
+            setMessage('This number already exists', true);
             return;
         }
         const newPerson = {
@@ -18,23 +18,26 @@ const Form = ({persons: phonebook, setPhonebook, showForm, setShowForm, setMessa
             number: newNumber
         };
         const existingPerson = phonebook.find(p => p.name === newName);
-        console.log(existingPerson);
         if (existingPerson !== undefined) {
             if (window.confirm(`${newName} already exists in the phone book, update their info?`)) {
                 newPerson['id'] = existingPerson.id;
                 PhonebookService.updateEntry(newPerson)
                     .then(responsePerson => setPhonebook(
                         phonebook.filter(p => p.id !== existingPerson.id)
-                            .concat(responsePerson)));
+                            .concat(responsePerson)))
+                    .catch(error => setMessage(error.response.data.error, true));
                 setShowForm(false);
             }
             return;
         }
 
         PhonebookService.createEntry(newPerson)
-            .then(responsePerson => setPhonebook(phonebook.concat(responsePerson)));
-        setShowForm(false);
-        setMessage('New Person successfully added to Phonebook', false);
+            .then(responsePerson => setPhonebook(phonebook.concat(responsePerson)))
+            .then(() => {
+                setShowForm(false);
+                setMessage('New Person successfully added to Phonebook', false);
+            })
+            .catch(error => setMessage(error.response.data.error, true));
         setNewName('');
         setNewNumber('');
     };

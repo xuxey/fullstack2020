@@ -4,7 +4,7 @@ const baseUrl = '/api';
 
 const getPhonebook = () => {
     const promise = axios.get(baseUrl + "/persons");
-    return promise.then(response => response.data);
+    return promise.then(response => response.data)
 };
 
 const createEntry = (newPerson) => {
