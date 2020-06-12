@@ -1,9 +1,15 @@
 require('dotenv').config()
 
 let PORT = process.env.PORT
-let MONGODB_URI = process.env.MONGODB_URI
+let BLOGS_MONGO_URI = process.env.BLOGS_MONGO_URI
+let USERS_MONGO_URI = process.env.USERS_MONGO_URI
+if (process.env.NODE_ENV === 'test') {
+    BLOGS_MONGO_URI = process.env.TEST_BLOGS_MONGO_URI
+    USERS_MONGO_URI = process.env.TEST_USERS_MONGO_URI
+}
 
 module.exports = {
-    MONGODB_URI,
+    BLOGS_MONGO_URI,
+    USERS_MONGO_URI,
     PORT
 }
