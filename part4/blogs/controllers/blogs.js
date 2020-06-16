@@ -11,10 +11,12 @@ blogRouter.get('/', (request, response) => {
 
 blogRouter.post('/', async (request, response, next) => {
     const body = request.body
-    const decodedToken = jwt.verify(request.token, process.env.SECRET)
-    if (!request.token || !decodedToken.id) {
+    console.log(request.token)
+    if (request.token === undefined)
         return response.status(401).json({error: 'token missing or invalid'})
-    }
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+    if (!decodedToken.id)
+        return response.status(401).json({error: 'token missing or invalid'})
     const user = await User.findById(decodedToken.id)
     const blog = new Blog({
         title: body.title,
@@ -51,7 +53,7 @@ blogRouter.delete('/:id', async (request, response, next) => {
     console.log('blog: ' + blog.user.id.toString() + ' ------ token id: ' + decodedToken.id.toString())
     if (blog.user.id.toString() === decodedToken.id.toString())
         Blog.findByIdAndRemove(request.params.id)
-            .then(result => response.status(201).json(result).end())
+            .then(() => response.status(201))
             .catch(error => next(error))
     return response.status(403).json({error: 'Forbidden'})
 })
