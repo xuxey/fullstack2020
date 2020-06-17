@@ -1,16 +1,19 @@
-import React, {useState} from "react"
-import blogService from "../services/blogs";
+import React, {useState} from 'react'
+import blogService from '../services/blogs'
 
 const BlogForm = ({user, blogs, setBlogs, setMessage}) => {
     const [title, setTitle] = useState('')
     const [url, setUrl] = useState('')
     const [author, setAuthor] = useState('')
     const onSubmit = (event) => {
-        event.preventDefault();
-        if (title === '' || author === '' || url === '') return;
+        event.preventDefault()
+        if (title === '' || author === '' || url === '') return
         blogService.setToken(user.token)
         blogService.addNewBlog({title, author, url})
-            .then(blog => setBlogs(blogs.concat(blog)))
+            .then(response => {
+                console.log(response);
+                setBlogs(blogs.concat(response))
+            })
             .catch(error => setMessage(error, true))
         setMessage(`Blog ${title} added successfully`, false)
         setTitle('')

@@ -7,13 +7,12 @@ loginRouter.post('/', async (request, response) => {
     const body = request.body
 
     const user = await User.findOne({username: body.username})
-    const passwordCorrect = user === null
-        ? false
-        : await bcrypt.compare(body.password, user.passwordHash)
-
-    if (!(user && passwordCorrect)) {
+    if (!user)
+        return response.status(401).send({error: 'username does not exist'})
+    const passwordCorrect = await bcrypt.compare(body.password, user.passwordHash)
+    if (!passwordCorrect) {
         return response.status(401).send({
-            error: 'invalid username or password'
+            error: 'invalid password'
         })
     }
 
@@ -26,7 +25,7 @@ loginRouter.post('/', async (request, response) => {
 
     response
         .status(200)
-        .send({token, username: user.username, name: user.name})
+        .send({token, username: user.username, name: user.name, id: user._id})
 })
 
 module.exports = loginRouter
