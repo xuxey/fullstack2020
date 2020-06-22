@@ -19,10 +19,11 @@ const LoginForm = ({setUser, setMessage}) => {
   }
   return (
       <form onSubmit={onSubmit}>
-        <h3> Login </h3>
-        <div> Username <input value={username} onChange={e => setUsername(e.target.value)}/></div>
-        <div> Password <input value={password} onChange={e => setPassword(e.target.value)} type='password'/></div>
-        <button type="submit">Login</button>
+          <h3> Login </h3>
+          <div> Username <input id='username' value={username} onChange={e => setUsername(e.target.value)}/></div>
+          <div> Password <input id='password' value={password} onChange={e => setPassword(e.target.value)}
+                                type='password'/></div>
+          <button id="login-button" type="submit">Login</button>
       </form>
   )
 }

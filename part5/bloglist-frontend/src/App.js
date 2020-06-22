@@ -10,7 +10,7 @@ import Togglable from './components/Togglable'
 const App = () => {
     const [blogs, setBlogs] = useState([])
     const [user, setUser] = useState()
-    const [message, setMessage] = useState({text: '', error: false})
+    const [message, setMessage] = useState({text: null, error: false})
 
     const showMessage = (message, isError) => {
         setMessage({text: message, error: isError})
@@ -39,7 +39,7 @@ const App = () => {
                 console.log(response);
                 setBlogs(blogs.concat(response))
             })
-            .catch(error => showMessage(error, true))
+            .catch(() => showMessage('Could not add the blog', true))
         showMessage(`Blog ${title} added successfully`, false)
     }
     useEffect(() => {
@@ -64,14 +64,15 @@ const App = () => {
             }
             <Notification message={message}/>
             {user &&
-            <Togglable buttonLabel='Add blog'>
+            <Togglable buttonId='blog-form-toggle' buttonLabel='Add blog'>
                 <BlogForm onSubmit={onSubmit}/>
             </Togglable>}
             {user ? <h2>Blogs</h2> : null}
-            {user ? blogs.map(blog =>
-                <Blog key={blog.id} blog={blog} authorViewing={blog.user.id === user.id}
-                      handleLikeClick={handleLikeClick} handleDeleteClick={handleDeleteClick}/>
-            ) : null}
+            <div id='blogs'>
+                {user ? blogs.map(blog =>
+                    <Blog key={blog.id} blog={blog} authorViewing={blog.user.id === user.id}
+                          handleLikeClick={handleLikeClick} handleDeleteClick={handleDeleteClick}/>
+                ) : null}</div>
         </div>
     )
 }

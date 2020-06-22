@@ -18,10 +18,10 @@ const BlogForm = ({onSubmit}) => {
     return (
         <form onSubmit={sanitizeForm} className="blogForm">
             <h3> Add New Blog </h3>
-            <div> Title <input value={title} onChange={e => setTitle(e.target.value)}/></div>
-            <div> Author <input value={author} onChange={e => setAuthor(e.target.value)}/></div>
-            <div> URL <input value={url} onChange={e => setUrl(e.target.value)}/></div>
-            <button type="submit">Submit</button>
+            <div> Title <input id='blogform-title' value={title} onChange={e => setTitle(e.target.value)}/></div>
+            <div> Author <input id='blogform-author' value={author} onChange={e => setAuthor(e.target.value)}/></div>
+            <div> URL <input id='blogform-url' value={url} onChange={e => setUrl(e.target.value)}/></div>
+            <button id='blog-submit' type="submit">Submit</button>
         </form>
     )
 }

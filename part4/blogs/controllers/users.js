@@ -16,7 +16,7 @@ usersRouter.post('/', async (request, response, next) => {
     })
     const savedUser = await user.save()
         .catch(error => next(error))
-    response.json(savedUser).end()
+    response.status(200).json(savedUser).end()
 })
 
 usersRouter.get('/', async (request, response) => {
