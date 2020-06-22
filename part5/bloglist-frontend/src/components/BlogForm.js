@@ -1,27 +1,22 @@
 import React, {useState} from 'react'
-import blogService from '../services/blogs'
 
-const BlogForm = ({user, blogs, setBlogs, setMessage}) => {
+const BlogForm = ({onSubmit}) => {
     const [title, setTitle] = useState('')
     const [url, setUrl] = useState('')
     const [author, setAuthor] = useState('')
-    const onSubmit = (event) => {
+    const sanitizeForm = (event) => {
         event.preventDefault()
-        if (title === '' || author === '' || url === '') return
-        blogService.setToken(user.token)
-        blogService.addNewBlog({title, author, url})
-            .then(response => {
-                console.log(response);
-                setBlogs(blogs.concat(response))
-            })
-            .catch(error => setMessage(error, true))
-        setMessage(`Blog ${title} added successfully`, false)
+        if (title === '' || author === '' || url === '') {
+            console.log('Empty ');
+            return
+        }
+        onSubmit(event, title, author, url)
         setTitle('')
         setAuthor('')
         setUrl('')
     }
     return (
-        <form onSubmit={onSubmit}>
+        <form onSubmit={sanitizeForm} className="blogForm">
             <h3> Add New Blog </h3>
             <div> Title <input value={title} onChange={e => setTitle(e.target.value)}/></div>
             <div> Author <input value={author} onChange={e => setAuthor(e.target.value)}/></div>

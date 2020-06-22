@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
-const Togglable = React.forwardRef((props) => {
+const Togglable = React.forwardRef((props, ref) => {
     const [visible, setVisible] = useState(false)
 
     const hideWhenVisible = {display: visible ? 'none' : ''}
@@ -19,7 +19,7 @@ const Togglable = React.forwardRef((props) => {
             <span style={showWhenVisible}>
         <button onClick={toggleVisibility}>close</button>
       </span>
-            <div style={showWhenVisible}>
+            <div style={showWhenVisible} className="togglableChildren">
                 {props.children}
             </div>
         </>
