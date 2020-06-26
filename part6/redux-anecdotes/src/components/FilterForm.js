@@ -1,23 +1,27 @@
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {updateFilter} from "../reducers/filterReducer";
 
-const FilterForm = () => {
-    const filterContent = useSelector(state => state.filter)
-    const dispatch = useDispatch()
-
+const FilterForm = (props) => {
     function handleSearch(event) {
-        dispatch(updateFilter(event.target.value))
+        props.updateFilter(event.target.value)
     }
 
     return (
         <div>
             <h3>Filter</h3>
             <form>
-                <input value={filterContent} onChange={handleSearch}/>
+                <input value={props.filterContent} onChange={handleSearch}/>
             </form>
         </div>
     )
 }
 
-export default FilterForm
+const mapStateToProps = (state) => {
+    return {
+        filterContent: state.filter,
+    }
+}
+const mapDispatchToProps = {updateFilter}
+const ConnectedFilter = connect(mapStateToProps, mapDispatchToProps)(FilterForm)
+export default ConnectedFilter

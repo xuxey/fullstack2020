@@ -1,5 +1,5 @@
 import React from "react";
-import {useDispatch, useSelector} from 'react-redux'
+import {connect} from 'react-redux'
 import {voteFor} from '../reducers/anecdoteReducer'
 
 const Anecdote = ({anecdote, handleClick}) => {
@@ -11,15 +11,20 @@ const Anecdote = ({anecdote, handleClick}) => {
     )
 }
 
-const AnecdoteList = () => {
-    const dispatch = useDispatch()
-    const filter = useSelector(state => state.filter)
-    const anecdotes = useSelector(state => state.anecdotes)
-        .filter(a => a.content.toLowerCase().includes(filter.toLowerCase()))
+const AnecdoteList = (props) => {
+    const anecdotes = props.anecdotes
+        .filter(a => a.content.toLowerCase().includes(props.filter.toLowerCase()))
         .sort((a, b) => b.votes - a.votes)
     return (
-        <ul>{anecdotes.map(a => <Anecdote key={a.id} anecdote={a} handleClick={(() => dispatch(voteFor(a)))}/>)}</ul>
+        <ul>{anecdotes.map(a => <Anecdote key={a.id} anecdote={a} handleClick={(() => props.voteFor(a))}/>)}</ul>
     )
 }
-
-export default AnecdoteList
+const mapStateToProps = (state) => {
+    return {
+        anecdotes: state.anecdotes,
+        filter: state.filter,
+    }
+}
+const mapDispatchToProps = {voteFor}
+const ConnectedList = connect(mapStateToProps, mapDispatchToProps)(AnecdoteList)
+export default ConnectedList

@@ -3,8 +3,11 @@ import {notify} from "./notificationReducer";
 
 export const voteFor = (anecdote) => {
   return async dispatch => {
-    dispatch(notify('Liked anecdote', 2))
+    dispatch(notify('Liked anecdote', 5))
+    console.log('Votes', anecdote.votes)
+    anecdote.votes = anecdote.votes + 1
     const votedAnecdote = await anecdoteService.vote(anecdote)
+    console.log('voted: ', votedAnecdote.votes)
     dispatch({
       type: 'VOTE',
       data: votedAnecdote
@@ -31,19 +34,13 @@ export const initializeAnecdotes = () => {
     })
   }
 }
-const increaseVote = (anecdote) => {
-  return {
-    content: anecdote.content,
-    id: anecdote.id,
-    votes: anecdote.votes + 1
-  }
-}
+
 const initialState = []
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'VOTE':
-      return state.map(a => a.id === action.data.id ? increaseVote(a) : a)
+      return state.map(a => a.id === action.data.id ? action.data : a)
     case 'NEW':
       return [...state, action.data]
     case 'INIT':
