@@ -1,33 +1,34 @@
-const anecdotesAtStart = [
-  'If it hurts, do it more often',
-  'Adding manpower to a late software project makes it later!',
-  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
-  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
-  'Premature optimization is the root of all evil.',
-  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
-]
+import anecdoteService from "../services/anecdoteService";
+import {notify} from "./notificationReducer";
 
-const getId = () => (100000 * Math.random()).toFixed(0)
-
-const asObject = (content) => {
-  return {
-    content: content,
-    id: getId(),
-    votes: 0
+export const voteFor = (anecdote) => {
+  return async dispatch => {
+    dispatch(notify('Liked anecdote', 2))
+    const votedAnecdote = await anecdoteService.vote(anecdote)
+    dispatch({
+      type: 'VOTE',
+      data: votedAnecdote
+    })
   }
 }
 
-export const voteFor = (anecdoteId) => {
-  return {
-    type: 'VOTE',
-    data: {id: anecdoteId}
+export const createAnecdote = content => {
+  return async dispatch => {
+    const newAnecdote = await anecdoteService.createNew(content)
+    dispatch({
+      type: 'NEW',
+      data: newAnecdote,
+    })
   }
 }
 
-export const createAnecdote = (content) => {
-  return {
-    type: 'NEW',
-    data: asObject(content)
+export const initializeAnecdotes = () => {
+  return async dispatch => {
+    const notes = await anecdoteService.getAll()
+    dispatch({
+      type: 'INIT',
+      data: notes,
+    })
   }
 }
 const increaseVote = (anecdote) => {
@@ -37,7 +38,7 @@ const increaseVote = (anecdote) => {
     votes: anecdote.votes + 1
   }
 }
-const initialState = anecdotesAtStart.map(asObject)
+const initialState = []
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -45,9 +46,21 @@ const reducer = (state = initialState, action) => {
       return state.map(a => a.id === action.data.id ? increaseVote(a) : a)
     case 'NEW':
       return [...state, action.data]
+    case 'INIT':
+      return action.data
     default:
       return state
   }
 }
 
 export default reducer
+
+/*
+const anecdotesAtStart = [
+  'If it hurts, do it more often',
+  'Adding manpower to a late software project makes it later!',
+  'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+  'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+  'Premature optimization is the root of all evil.',
+  'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.'
+]*/

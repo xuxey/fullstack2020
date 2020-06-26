@@ -18,7 +18,7 @@ const AnecdoteList = () => {
         .filter(a => a.content.toLowerCase().includes(filter.toLowerCase()))
         .sort((a, b) => b.votes - a.votes)
     return (
-        <ul>{anecdotes.map(a => <Anecdote key={a.id} anecdote={a} handleClick={(() => dispatch(voteFor(a.id)))}/>)}</ul>
+        <ul>{anecdotes.map(a => <Anecdote key={a.id} anecdote={a} handleClick={(() => dispatch(voteFor(a)))}/>)}</ul>
     )
 }
 
