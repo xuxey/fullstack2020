@@ -3,14 +3,8 @@ import ConfirmButton from '../ConfirmButton'
 import {useDispatch, useSelector} from "react-redux";
 import {deleteBlog, likeBlog} from "../../reducers/blogsReducer";
 import {useHistory, useRouteMatch} from "react-router-dom";
-
-const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-}
+import CommentForm from "./CommentForm";
+import {Button, Jumbotron} from "react-bootstrap"
 
 const Blog = () => {
     const history = useHistory()
@@ -22,13 +16,12 @@ const Blog = () => {
     if (!blog) return null
     console.log('BLOG', blog)
     return (
-        <div style={blogStyle} className='blog'>
-          <span>
-            <strong>{blog.title} by {blog.author}</strong>
-          </span>
-            <div>{blog.url}</div>
+        <Jumbotron className='blog'>
+            <h2>{blog.title} by {blog.author}</h2>
+            <p>{blog.url}</p>
             likes:<span id='likes-display'>{blog.likes}</span>
-            <button id='blog-like-button' onClick={() => dispatch(likeBlog(blog))}>Like</button>
+            <Button variant="outline-success" id='blog-like-button' size="sm"
+                    onClick={() => dispatch(likeBlog(blog))}>Like</Button>
             <div>Added by: {blog.user.username}</div>
             {blog.user.id === user.id &&
             <div id='blog-delete'>
@@ -37,7 +30,11 @@ const Blog = () => {
                     history.push('/blogs')
                 }} label='Delete'/>
             </div>}
-        </div>)
+            <h3>Comments</h3>
+            {blog.comments.map(comment =>
+                <div key={comment.id}>{comment.content} by {comment.user.username} </div>)}
+            <CommentForm blogId={blog.id}/>
+        </Jumbotron>)
 }
 
 export default Blog

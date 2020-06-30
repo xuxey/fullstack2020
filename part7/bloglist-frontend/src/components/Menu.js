@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom"
 import {useSelector} from "react-redux";
+import {Nav, Navbar} from 'react-bootstrap'
 
 const Menu = () => {
     const padding = {
@@ -9,20 +10,30 @@ const Menu = () => {
     const user = useSelector(state => state.user)
     if (user)
         return (
-            <div>
-                <Link style={padding} to="/blogs">Home</Link>
-                <Link style={padding} to="/new">Add Blog</Link>
-                <Link style={padding} to="/users">Users</Link>
-                <Link style={padding} to='/logout'>Logout</Link>
-            </div>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Navbar.Brand>Blogs</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="#" as="span"><Link style={padding} to="/blogs">Home</Link></Nav.Link>
+                        <Nav.Link href="#" as="span"><Link style={padding} to="/new">Add Blog</Link></Nav.Link>
+                        <Nav.Link href="#" as="span"><Link style={padding} to="/users">Users</Link></Nav.Link>
+                        <Nav.Link href="#" as="span"><Link style={padding} to='/logout'>Logout</Link></Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         )
     else
         return (
-            <div>
-                <Link style={padding} to="/">Home</Link>
-                <Link style={padding} to="/login">Login</Link>
-                <Link style={padding} to="/users">Users</Link>
-            </div>
+            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                <Navbar.Brand>Blogs</Navbar.Brand>
+                <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Nav className="mr-auto">
+                        <Nav.Link href="#" as="span"><Link style={padding} to='/login'>Login</Link></Nav.Link>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         )
 }
 

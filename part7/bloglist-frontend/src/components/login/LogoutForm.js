@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {notify} from "../../reducers/notificationReducer";
 import {logout} from "../../reducers/userReducer";
 import {Link, useHistory} from "react-router-dom";
+import {Button} from "react-bootstrap"
 
 const LogoutForm = () => {
     const history = useHistory()
@@ -22,7 +23,7 @@ const LogoutForm = () => {
                       <h2>Logged in as {user.username}</h2>
                     </span>
                     <span>
-                        <button type="submit">Logout</button>
+                        <Button variant="primary" type="submit">Logout</Button>
                     </span>
                 </form>
             </div>

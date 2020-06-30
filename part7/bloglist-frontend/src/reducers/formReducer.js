@@ -18,6 +18,10 @@ const initialState = [
     {
         id: 'login-password',
         content: ''
+    },
+    {
+        id: 'comment-content',
+        content: ''
     }
 ]
 

@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addBlog} from "../../reducers/blogsReducer";
 import {reset, selectInput, updateInput} from "../../reducers/formReducer";
 import {useHistory} from "react-router-dom"
+import {Button, Form} from 'react-bootstrap'
 
 const BlogForm = () => {
     const history = useHistory()
@@ -25,16 +26,21 @@ const BlogForm = () => {
         history.push('/blogs')
     }
     return (
-        <form onSubmit={sanitizeForm} className="blogForm">
-            <h3> Add New Blog </h3>
-            <div> Title <input id='blogform-title' value={title}
-                               onChange={e => dispatch(updateInput('blogform-title', e.target.value))}/></div>
-            <div> Author <input id='blogform-author' value={author}
-                                onChange={e => dispatch(updateInput('blogform-author', e.target.value))}/></div>
-            <div> URL <input id='blogform-url' value={url}
-                             onChange={e => dispatch(updateInput('blogform-url', e.target.value))}/></div>
-            <button id='blog-submit' type="submit">Submit</button>
-        </form>
+        <Form onSubmit={sanitizeForm} className="blogForm">
+            <Form.Group>
+                <h3> Add New Blog </h3>
+                <Form.Label>Title</Form.Label>
+                <Form.Control id='blogform-title' value={title}
+                              onChange={e => dispatch(updateInput('blogform-title', e.target.value))}/>
+                <Form.Label>Author</Form.Label>
+                <Form.Control id='blogform-author' value={author}
+                              onChange={e => dispatch(updateInput('blogform-author', e.target.value))}/>
+                <Form.Label>Link</Form.Label>
+                <Form.Control id='blogform-url' value={url}
+                              onChange={e => dispatch(updateInput('blogform-url', e.target.value))}/>
+                <Button variant="primary" id='blog-submit' type="submit">Submit</Button>
+            </Form.Group>
+        </Form>
     )
 }
 

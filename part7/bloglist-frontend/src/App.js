@@ -26,7 +26,6 @@ const App = () => {
     // const blogId = useRouteMatch('/blogs/:id').params.id
     return (
         <div>
-            <h1>Blog List</h1>
             <Menu/>
             <Notification/>
             <Switch>

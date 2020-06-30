@@ -1,17 +1,18 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import {Button} from "react-bootstrap"
 
 const ConfirmButton = ({label, handleClick}) => {
     const [confirmed, setConfirmed] = useState(false)
     if (confirmed)
         return (
-            <button onClick={handleClick}>Confirm</button>
+            <Button variant="primary" onClick={handleClick}>Confirm</Button>
         )
     else
         return (
-            <button onClick={() => {
+            <Button variant="primary" onClick={() => {
                 setConfirmed(true)
-            }}>{label}</button>
+            }}>{label}</Button>
         )
 }
 ConfirmButton.propTypes = {

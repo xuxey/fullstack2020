@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../reducers/userReducer";
 import {reset, selectInput, updateInput} from "../../reducers/formReducer";
 import {useHistory} from "react-router-dom"
+import {Button, Form} from "react-bootstrap"
 
 const LoginForm = () => {
     const dispatch = useDispatch()
@@ -19,15 +20,17 @@ const LoginForm = () => {
         history.push('/blogs')
     }
     return (
-        <form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit}>
             <h3> Login </h3>
-            <div> Username <input id='username' value={username}
-                                  onChange={e => dispatch(updateInput('login-username', e.target.value))}/></div>
-            <div> Password <input id='password' value={password}
-                                  onChange={e => dispatch(updateInput('login-password', e.target.value))}
-                                  type='password'/></div>
-            <button id="login-button" type="submit">Login</button>
-        </form>
+            <Form.Label>Username</Form.Label>
+            <Form.Control id='username' value={username}
+                          onChange={e => dispatch(updateInput('login-username', e.target.value))}/>
+            <Form.Label>Password</Form.Label>
+            <Form.Control id='password' value={password}
+                          onChange={e => dispatch(updateInput('login-password', e.target.value))}
+                          type='password'/>
+            <Button variant="primary" id="login-button" type="submit">Login</Button>
+        </Form>
     )
 }
 

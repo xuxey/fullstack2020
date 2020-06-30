@@ -3,10 +3,17 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
-blogRouter.get('/', (request, response) => {
-    Blog.find({})
+blogRouter.get('/', async (request, response) => {
+    const blogs = await Blog.find({})
         .populate('user')
-        .then(blogs => response.json(blogs))
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        })
+        .exec()
+    await response.status(201).json(blogs)
 })
 
 blogRouter.post('/', async (request, response, next) => {
@@ -48,6 +55,12 @@ blogRouter.post('/', async (request, response, next) => {
 blogRouter.delete('/:id', async (request, response, next) => {
     const blog = await Blog.findById(request.params.id)
         .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        })
         .catch(error => next(error))
     let decodedToken
     try {
@@ -64,7 +77,7 @@ blogRouter.delete('/:id', async (request, response, next) => {
         const user = await User.findById(decodedToken.id)
         user.blogs = user.blogs.filter(blog => request.params.id !== blog.id)
         user.save()
-            .then(() => response.status(201))
+            .then(() => response.status(201).json({status: "success"}))
     } else
         return response.status(403).json({error: 'Forbidden'})
 })
@@ -72,6 +85,12 @@ blogRouter.delete('/:id', async (request, response, next) => {
 blogRouter.put('/:id', async (request, response, next) => {
     const blog = await Blog.findById(request.params.id)
         .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        })
         .catch(error => next(error))
     blog.likes = blog.likes + 1
     blog.save()

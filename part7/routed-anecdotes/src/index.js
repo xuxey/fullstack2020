@@ -5,9 +5,12 @@ import {BrowserRouter as Router,} from "react-router-dom"
 
 const RoutedApp = () => {
     return (
-        <Router>
-            <App/>
-        </Router>
+        <div className="container">
+            <Router>
+                <App/>
+            </Router>
+        </div>
+
     )
 }
 ReactDOM.render(<RoutedApp/>, document.getElementById('root'))
