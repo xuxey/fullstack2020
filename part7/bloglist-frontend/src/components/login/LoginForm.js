@@ -1,10 +1,12 @@
 import React from 'react'
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "../reducers/userReducer";
-import {reset, selectInput, updateInput} from "../reducers/formReducer";
+import {login} from "../../reducers/userReducer";
+import {reset, selectInput, updateInput} from "../../reducers/formReducer";
+import {useHistory} from "react-router-dom"
 
 const LoginForm = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const username = useSelector(state => selectInput('login-username', state))
     const password = useSelector(state => selectInput('login-password', state))
     const onSubmit = async (event) => {
@@ -14,6 +16,7 @@ const LoginForm = () => {
         console.log('Credentials: ', username, password)
         dispatch(login({username, password}))
         dispatch(reset('login'))
+        history.push('/blogs')
     }
     return (
         <form onSubmit={onSubmit}>

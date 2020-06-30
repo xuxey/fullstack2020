@@ -18,10 +18,14 @@ const notificationReducer = (state = initialState, action) => {
 
 export const initUser = (user) => {
     return async dispatch => {
-        dispatch({
-            type: 'INIT_USER',
-            user
-        })
+        const loggedUserJSON = window.localStorage.getItem('blogUser')
+        if (loggedUserJSON) {
+            const parsedUser = JSON.parse(loggedUserJSON)
+            dispatch({
+                type: 'INIT_USER',
+                user: parsedUser
+            })
+        }
     }
 }
 export const login = (user) => {

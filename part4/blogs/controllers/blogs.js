@@ -34,12 +34,10 @@ blogRouter.post('/', async (request, response, next) => {
     })
     let savedBlog
     await blog.save()
-        .then(result => {
-            console.log('result -> ', result)
-            savedBlog = result;
-        })
+        .then(result => savedBlog = result)
         .catch(error => next(error))
     if (savedBlog) {
+        savedBlog.user = user
         user.blogs = user.blogs.concat(savedBlog._id)
         user.save()
             .then(() => response.status(201).json(savedBlog))
@@ -60,25 +58,26 @@ blogRouter.delete('/:id', async (request, response, next) => {
     if (!request.token || !decodedToken.id) {
         return response.status(401).json({error: 'token missing or invalid'})
     }
-    console.info('Blog', blog)
-    console.log('blog: ' + blog.user.id.toString() + ' ------ token id: ' + decodedToken.id.toString())
-    if (blog.user.id.toString() === decodedToken.id.toString())
+    if (blog.user.id.toString() === decodedToken.id.toString()) {
         Blog.findByIdAndRemove(request.params.id)
-            .then(() => response.status(201).end())
             .catch(error => next(error))
-    else
+        const user = await User.findById(decodedToken.id)
+        user.blogs = user.blogs.filter(blog => request.params.id !== blog.id)
+        user.save()
+            .then(() => response.status(201))
+    } else
         return response.status(403).json({error: 'Forbidden'})
 })
 
-blogRouter.put('/:id', (request, response, next) => {
-    const blog = {
-        title: request.body.title,
-        author: request.body.author,
-        url: request.body.url,
-        likes: request.body.likes
-    }
-    Blog.findByIdAndUpdate(request.params.id, blog, {new: true})
-        .then(updatedBlog => response.json(updatedBlog))
+blogRouter.put('/:id', async (request, response, next) => {
+    const blog = await Blog.findById(request.params.id)
+        .populate('user')
+        .catch(error => next(error))
+    blog.likes = blog.likes + 1
+    blog.save()
+        .then(updatedBlog => {
+            response.json(updatedBlog)
+        })
         .catch(error => next(error));
 })
 module.exports = blogRouter
