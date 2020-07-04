@@ -11,6 +11,7 @@ const SetBirthYear = (props) => {
     const [author, setAuthor] = useState('')
     const [birthYear, setBirthYear] = useState('')
     const [updateBirthYear] = useMutation(SET_BDAY, {
+        onError: error => props.setMessage(error.graphQLErrors[0].message, true),
         refetchQueries: [{query: ALL_AUTHORS}]
     })
 
@@ -41,7 +42,7 @@ const SetBirthYear = (props) => {
                         onChange={({target}) => setBirthYear(target.value)}
                     />
                 </div>
-                <button type='submit'>create book</button>
+                <button type='submit'>Update</button>
             </form>
         </div>
     )

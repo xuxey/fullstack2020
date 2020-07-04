@@ -3,7 +3,7 @@ import {useQuery} from "@apollo/client";
 import {ALL_AUTHORS} from "../queries";
 import SetBirthYear from "./SetBirthYear";
 
-const Authors = ({show}) => {
+const Authors = ({show, setMessage}) => {
   const {loading, error, data} = useQuery(ALL_AUTHORS)
   if (!show) {
     return null
@@ -14,6 +14,7 @@ const Authors = ({show}) => {
     return <div>An error has occured</div>
   }
   const authors = data.allAuthors
+  console.log("AUTHORS", authors)
   return (
       <div>
         <h2>authors</h2>
@@ -31,13 +32,13 @@ const Authors = ({show}) => {
           {authors.map(a =>
               <tr key={a.name}>
                 <td>{a.name}</td>
-                <td>{a.born}</td>
+                <td>{a.born ? a.born : 'No Data'}</td>
                 <td>{a.bookCount}</td>
               </tr>
           )}
           </tbody>
         </table>
-        <SetBirthYear authors={authors}/>
+        <SetBirthYear authors={authors} setMessage={setMessage}/>
       </div>
   )
 }
