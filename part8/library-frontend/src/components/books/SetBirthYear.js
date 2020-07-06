@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {SET_BDAY} from "../mutations";
+import {SET_BDAY} from "../../mutations";
 import {useMutation} from "@apollo/client";
-import {ALL_AUTHORS} from "../queries";
+import {ALL_AUTHORS} from "../../queries";
 import Select from "react-select";
+import {Button, Form} from "react-bootstrap";
 
 const SetBirthYear = (props) => {
     const authors = props.authors.map(author => {
@@ -24,27 +25,26 @@ const SetBirthYear = (props) => {
     }
 
     return (
-        <div>
-            <form onSubmit={submit}>
-                <div>
-                    Author
-                    <Select
-                        value={author}
-                        onChange={option => setAuthor(option)}
-                        options={authors}
-                    />
-                </div>
-                <div>
-                    Birth Year
-                    <input
-                        type='number'
-                        value={birthYear}
-                        onChange={({target}) => setBirthYear(target.value)}
-                    />
-                </div>
-                <button type='submit'>Update</button>
-            </form>
-        </div>
+        <Form onSubmit={submit}>
+            <h3>Update Author Birth Year</h3>
+            <Form.Group>
+                <Form.Label>Author</Form.Label>
+                <Select
+                    value={author}
+                    onChange={option => setAuthor(option)}
+                    options={authors}
+                />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Birth Year</Form.Label>
+                <Form.Control
+                    type='number'
+                    value={birthYear}
+                    onChange={({target}) => setBirthYear(target.value)}
+                />
+            </Form.Group>
+            <Button type='submit'>Update</Button>
+        </Form>
     )
 }
 

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import {ApolloClient, ApolloProvider, HttpLink, InMemoryCache, ApolloLink} from '@apollo/client'
+import {BrowserRouter as Router,} from "react-router-dom"
 
 const httpLink = new HttpLink({uri: 'http://localhost:4000'})
 const authLink = new ApolloLink((operation, forward) => {
@@ -24,7 +25,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
     <ApolloProvider client={client}>
-        <App/>
+        <Router>
+            <App/>
+        </Router>
     </ApolloProvider>,
     document.getElementById('root')
 )

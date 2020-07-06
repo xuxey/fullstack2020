@@ -42,6 +42,7 @@ export const LOGIN_USER = gql`
             username
             id
             token
+            favoriteGenre
         }
     }
 `

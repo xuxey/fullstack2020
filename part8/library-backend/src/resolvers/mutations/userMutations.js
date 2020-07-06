@@ -40,7 +40,8 @@ const login = async (root, {username, password}) => {
     return {
         token,
         username: user.username,
-        id: user._id
+        id: user._id,
+        favoriteGenre: user.favoriteGenre
     }
 }
 

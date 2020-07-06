@@ -1,10 +1,13 @@
 import React, {useState} from 'react'
 import {useMutation} from "@apollo/client";
-import {LOGIN_USER} from "../mutations";
+import {LOGIN_USER} from "../../mutations";
+import {Button, Form} from "react-bootstrap";
+import {useHistory} from "react-router-dom"
 
 const LoginForm = ({setUser, setMessage}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const history = useHistory();
     const [loginUser] = useMutation(LOGIN_USER, {
             onError: error => setMessage(error.graphQLErrors[0].message, true)
         }
@@ -21,16 +24,18 @@ const LoginForm = ({setUser, setMessage}) => {
         window.localStorage.setItem('libraryUser', JSON.stringify(loggedInUser))
         setUsername('')
         setPassword('')
+        history.push('/books')
         setMessage(`Logged in as ${username}`, false)
     }
     return (
-        <form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit}>
             <h3> Login </h3>
-            <div> Username <input id='username' value={username} onChange={e => setUsername(e.target.value)}/></div>
-            <div> Password <input id='password' value={password} onChange={e => setPassword(e.target.value)}
-                                  type='password'/></div>
-            <button id="login-button" type="submit">Login</button>
-        </form>
+            <Form.Label>Username</Form.Label>
+            <Form.Control id='username' value={username} onChange={e => setUsername(e.target.value)}/>
+            <Form.Label>Password</Form.Label>
+            <Form.Control id='password' value={password} onChange={e => setPassword(e.target.value)} type='password'/>
+            <Button variant="primary" id="login-button" type="submit">Login</Button>
+        </Form>
     )
 }
 

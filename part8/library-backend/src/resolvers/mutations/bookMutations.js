@@ -1,6 +1,6 @@
 const Book = require("../../models/book")
 const Author = require("../../models/author")
-const {UserInputError} = require('apollo-server');
+const {UserInputError, AuthenticationError} = require('apollo-server');
 const addBook = async (root, args, context) => {
     if (!context.currentUser)
         throw new AuthenticationError("not authenticated")
