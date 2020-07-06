@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import {useLazyQuery, useQuery} from "@apollo/client";
-import {BOOKS_BY_GENRE, FAVE_GENRE} from "../../queries";
+import {useQuery} from "@apollo/client";
+import {BOOKS_BY_GENRE} from "../../queries";
 import {Form, InputGroup, Table} from "react-bootstrap";
 
 const Recommended = ({user}) => {
@@ -18,7 +18,6 @@ const Recommended = ({user}) => {
     let i = 1
     return (
         <div>
-            <h2>Books</h2>
             <InputGroup>
                 <InputGroup.Prepend>
                     <InputGroup.Text id="basic-addon1">Search</InputGroup.Text>

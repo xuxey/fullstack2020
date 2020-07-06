@@ -12,7 +12,10 @@ const NewBook = (props) => {
     const [genres, setGenres] = useState([])
     const [createBook] = useMutation(ADD_BOOK, {
             refetchQueries: [{query: ALL_AUTHORS}, {query: ALL_BOOKS}],
-            onError: error => props.showMessage(error.graphQLErrors[0].message, true)
+            onError: error => {
+                console.log(error)
+                props.showMessage(error.graphQLErrors[0].message, true)
+            }
         }
     )
 
@@ -39,7 +42,6 @@ const NewBook = (props) => {
 
   return (
       <Form onSubmit={submit}>
-          <h3>Add New Book</h3>
           <Form.Row>
               <Form.Group as={Col}>
                   <Form.Label>Title</Form.Label>
@@ -70,20 +72,23 @@ const NewBook = (props) => {
                   />
               </Form.Group>
           </Form.Row>
-          <Form.Row>
+          <Form inline>
               <Form.Group>
-                  <Form.Label>Genres</Form.Label>
                   <Form.Control
                       placeholder="Add genres"
                       value={genre}
                       onChange={({target}) => setGenre(target.value)}
                   />
+                  <Button variant='primary' onClick={addGenre} type="button">+</Button>
               </Form.Group>
-              <Button size="sm" variant='primary' onClick={addGenre} type="button">Add genre</Button>
-          </Form.Row>
+          </Form>
 
-          <h4> Genres: </h4>
-          <div>{genres.join(',')} </div>
+          <div>
+              <span><h4> Genres:  </h4></span>
+              <span>{genres.join(',')}</span>
+
+
+          </div>
           <Button type='submit'>Create Book</Button>
       </Form>
   )

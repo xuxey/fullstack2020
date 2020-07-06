@@ -4,6 +4,7 @@ export const ALL_AUTHORS = gql`
     query {
         allAuthors  {
             name
+            _id
             born
             bookCount
         }
@@ -20,6 +21,7 @@ export const ALL_BOOKS = gql`
             }
             published
             genres
+            _id
         }
     }
 `
@@ -42,6 +44,21 @@ export const FAVE_GENRE = gql`
     query getFavoriteGenre {
         me {
             favoriteGenre
+        }
+    }
+`
+
+export const BOOK_ADDED = gql`
+    subscription {
+        bookAdded {
+            title
+            published
+            author {
+                name
+                _id
+            }
+            _id
+            genres
         }
     }
 `

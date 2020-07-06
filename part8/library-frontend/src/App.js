@@ -9,6 +9,8 @@ import Logout from "./components/login/Logout";
 import {Route, Switch} from "react-router-dom"
 import './App.css'
 import Recommended from "./components/books/Recommended";
+import {useApolloClient, useSubscription} from "@apollo/client";
+import {ALL_BOOKS, BOOK_ADDED} from "./queries";
 
 const App = () => {
     const [message, setMessage] = useState(null)
@@ -28,27 +30,41 @@ const App = () => {
             <Notification message={message}/>
             <Switch>
                 <Route path="/login">
+                    <h2>Login</h2>
+                    <hr/>
                     <LoginForm setMessage={showMessage} setUser={setUser}/>
                 </Route>
                 <Route path="/authors">
+                    <h2>Authors</h2>
+                    <hr/>
                     <Authors
                         setMessage={showMessage}
                     />
                 </Route>
                 <Route path="/books/new">
+                    <h2>Add New Book</h2>
+                    <hr/>
                     <NewBook showMessage={showMessage} user={user}/>
                 </Route>
                 <Route path="/books">
-                    <Books/>
+                    <h2>Books</h2>
+                    <hr/>
+                    <Books showMessage={showMessage}/>
                 </Route>
                 <Route path="/logout">
+                    <h2>Log Out</h2>
+                    <hr/>
                     <Logout setUser={setUser} showMessage={showMessage}/>
                 </Route>
                 <Route path="/recommended">
+                    <h2>Recommended</h2>
+                    <hr/>
                     <Recommended user={user}/>
                 </Route>
                 <Route path="/">
-                    <Books/>
+                    <h2>Books</h2>
+                    <hr/>
+                    <Books showMessage={showMessage}/>
                 </Route>
             </Switch>
         </div>

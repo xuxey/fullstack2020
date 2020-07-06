@@ -49,6 +49,9 @@ const typeDefs = gql`
             password: String!
         ): User
     }
+    type Subscription {
+        bookAdded: Book!
+    }
 `
 
 module.exports = typeDefs

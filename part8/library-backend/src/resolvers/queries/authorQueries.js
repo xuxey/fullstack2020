@@ -6,7 +6,7 @@ const allAuthors = async () => {
     let books = await Book.find({})
         .populate('author')
     authors = authors.map(author => {
-        author['bookCount'] = books.filter(b => b.author.name === author.name).length;
+        author.bookCount = books.filter(b => b.author.name === author.name).length;
         return author
     })
     return authors

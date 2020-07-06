@@ -27,6 +27,9 @@ const resolvers = {
         authorCount: authorQueries.authorCount,
         allAuthors: authorQueries.allAuthors,
         me: userQueries.me
+    },
+    Subscription: {
+        bookAdded: bookMutations.bookAdded
     }
 }
 
@@ -36,6 +39,7 @@ const server = new ApolloServer({
     context: userQueries.getContext
 })
 
-server.listen().then(({url}) => {
+server.listen().then(({url, subscriptionsUrl}) => {
     console.log(`Server ready at ${url}`)
+    console.log(`Subscriptions ready at ${subscriptionsUrl}`)
 })

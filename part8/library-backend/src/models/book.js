@@ -11,6 +11,7 @@ const schema = new mongoose.Schema({
         type: Number,
     },
     author: {
+        required: true,
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Author'
     },

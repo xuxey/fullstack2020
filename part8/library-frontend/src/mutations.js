@@ -8,10 +8,11 @@ export const ADD_BOOK = gql`
             genres: $genres,
             published: $published
         ) {
+            title
             author {
                 name
+                _id
             }
-            title
             genres
             published
         }
