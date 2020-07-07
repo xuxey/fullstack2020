@@ -1,0 +1,19 @@
+{
+  "name": "bmi",
+  "version": "1.0.0",
+  "description": "Body Mass Index calculator w/ Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "ts-node",
+    "calculateBmi": "npm run ts-node -- src/bmiCalculator.ts",
+    "calculateExercises": "npm run ts-node -- src/exerciseCalculator.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.18",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  }
+}
