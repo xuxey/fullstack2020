@@ -1,5 +1,10 @@
 import patientData from "../data/patients.json"
+import {PatientWithoutSSN} from "../types";
 
-const getPatients = () => patientData
+const getPatientsWithoutSSN = (): PatientWithoutSSN[] => {
+    return patientData.map(({id, name, gender, occupation, dateOfBirth}) => ({
+        id, name, gender, occupation, dateOfBirth
+    }))
+}
 
-export default {getPatients}
+export default {getPatients: getPatientsWithoutSSN}

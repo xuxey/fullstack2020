@@ -7,3 +7,5 @@ export interface Patient {
     occupation: String
 }
 
+export type PatientWithoutSSN = Omit<Patient, 'ssn'>;
+
