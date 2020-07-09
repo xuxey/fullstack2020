@@ -1,7 +1,7 @@
 import React from "react";
-import {Course} from "../types";
+import {CoursePart} from "../types";
 
-const Total: React.FC<{ courseParts: Course[] }> = ({courseParts}) => {
+const Total: React.FC<{ courseParts: CoursePart[] }> = ({courseParts}) => {
     return (
         <p>
             Number of exercises{" "}
