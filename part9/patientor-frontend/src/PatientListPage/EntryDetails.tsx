@@ -38,8 +38,10 @@ const EntryDetails: React.FC<{ entry: Entry, diagnoses: Diagnosis[] }> = ({entry
                 <Item.Content>
                     <h4>Hospital Entry</h4>
                     <div>
-                        {entry.date} - {entry.discharge} - {entry.specialist}
+                        {entry.date} - {entry.specialist}
                     </div>
+                    <div>Discharge date: {entry.discharge.date}</div>
+                    <div>Criteria: {entry.discharge.criteria}</div>
                     <div>
                         {entry.description}
                     </div>

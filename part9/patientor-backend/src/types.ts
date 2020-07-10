@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 import {Diagnosis} from "../../patientor-frontend/src/types";
 
 export interface Patient {

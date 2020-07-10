@@ -1,5 +1,5 @@
 import patientData from "../data/patients"
-import {PublicPatient, Patient, NewPatient, PatientSansSSN} from "../types";
+import {PublicPatient, Patient, NewPatient, PatientSansSSN, Entry} from "../types";
 import {v1 as uuid} from "uuid"
 
 const getPatientsWithoutSSN = (): PublicPatient[] => {
@@ -22,4 +22,15 @@ const getPatientById = (id: any): PatientSansSSN | undefined => {
         return patientData.find(patient => patient.id === id);
     throw Error('id is incorrct')
 }
-export default {getPatientsWithoutSSN, addPatient, getPatientById}
+const addEntry = (id: string, entry: Entry): Entry => {
+    let patient = patientData.find(p => p.id === id);
+    if (!patient) throw Error('Patient doesnt exist');
+    patient.entries.push(entry);
+    patientData.forEach(p => p.id === id ? patient : p);
+    return entry;
+}
+
+export default {
+    getPatientsWithoutSSN, addPatient, getPatientById,
+    addEntry
+}
